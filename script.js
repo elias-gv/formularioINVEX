@@ -2,11 +2,15 @@
   const form = document.getElementById('quote-form');
   const output = document.getElementById('quote-output');
   const generateButton = document.getElementById('generate-button');
+  const printButton = document.getElementById('print-button');
   const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 2,
   });
+  const PRINT_READY_CLASS = 'quote-output--ready';
+  const PRINT_MODE_CLASS = 'is-printing';
+  const LOGO_SRC = 'assets/logo-sisnova.svg';
 
   const priceCatalog = [
     {
@@ -186,6 +190,7 @@
   }
 
   function renderQuote() {
+    document.body.classList.remove(PRINT_MODE_CLASS);
     const formData = new FormData(form);
 
     const companyName = (formData.get('companyName') || '').trim();
@@ -324,14 +329,22 @@
       ? `<div class="quote-section"><h4>Notas adicionales</h4><p>${breakLines(notesText)}</p></div>`
       : '';
 
+    const generationDate = new Date();
+    const formattedGenerationDate = generationDate.toLocaleDateString('es-MX', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    });
+
     output.innerHTML = `
-      <header>
-        <h3>${heading}</h3>
-        <p>Estimado generado ${new Date().toLocaleDateString('es-MX', {
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric',
-        })}</p>
+      <header class="quote-header">
+        <div class="quote-brand">
+          <img src="${LOGO_SRC}" alt="Logo de SISNOVA" class="quote-brand__logo" />
+          <div class="quote-brand__content">
+            <h3>${heading}</h3>
+            <p class="quote-generated-date">Estimado generado ${formattedGenerationDate}</p>
+          </div>
+        </div>
       </header>
       ${buildMetadata({ companyName, contactName, contactEmail, goLive, notes: projectNotes })}
       <div class="quote-section">
@@ -344,9 +357,35 @@
       ${notesBlock}
       ${disclaimerBlock}
     `;
+
+    output.classList.add(PRINT_READY_CLASS);
   }
 
   generateButton.addEventListener('click', renderQuote);
+
+  function handlePrint() {
+    if (!output.classList.contains(PRINT_READY_CLASS)) {
+      alert('Genera un estimado antes de imprimir o exportar.');
+      return;
+    }
+
+    document.body.classList.add(PRINT_MODE_CLASS);
+
+    const cleanup = () => {
+      document.body.classList.remove(PRINT_MODE_CLASS);
+      window.removeEventListener('afterprint', cleanup);
+    };
+
+    window.addEventListener('afterprint', cleanup);
+
+    window.requestAnimationFrame(() => {
+      window.print();
+    });
+  }
+
+  if (printButton) {
+    printButton.addEventListener('click', handlePrint);
+  }
 
   priceCatalog.forEach((entry) => {
     const input = document.getElementById(entry.priceField);
@@ -366,6 +405,8 @@
           <p>Completa la información y haz clic en “Generar estimado” para ver el detalle aquí.</p>
         </div>
       `;
+      output.classList.remove(PRINT_READY_CLASS);
+      document.body.classList.remove(PRINT_MODE_CLASS);
       updatePriceHelpers();
     }, 0);
   });

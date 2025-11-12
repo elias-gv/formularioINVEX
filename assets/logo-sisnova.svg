@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="60" viewBox="0 0 260 60" role="img" aria-labelledby="title">
+  <title id="title">SISNOVA</title>
+  <g transform="translate(5,8)">
+    <g transform="rotate(45 18 18)">
+      <rect x="2" y="-10" width="20" height="20" fill="#00b6e6" rx="2" />
+      <rect x="24" y="-10" width="20" height="20" fill="#454e57" rx="2" />
+      <rect x="46" y="-10" width="20" height="20" fill="#00b6e6" rx="2" />
+      <rect x="68" y="-10" width="20" height="20" fill="#454e57" rx="2" />
+    </g>
+    <g transform="translate(17,22) rotate(45 18 18)">
+      <rect x="2" y="-10" width="20" height="20" fill="#454e57" rx="2" />
+      <rect x="24" y="-10" width="20" height="20" fill="#00b6e6" rx="2" />
+      <rect x="46" y="-10" width="20" height="20" fill="#454e57" rx="2" />
+    </g>
+    <g transform="translate(34,44) rotate(45 18 18)">
+      <rect x="2" y="-10" width="20" height="20" fill="#00b6e6" rx="2" />
+      <rect x="24" y="-10" width="20" height="20" fill="#454e57" rx="2" />
+    </g>
+  </g>
+  <g font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="2" transform="translate(120,40)">
+    <text fill="#454e57">SIS</text>
+    <text fill="#00b6e6" x="70">NOVA</text>
+  </g>
+</svg>
