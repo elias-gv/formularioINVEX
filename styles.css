@@ -244,16 +244,55 @@ a {
   background: #fff;
 }
 
-.quote-output header h3 {
+.quote-header {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1.25rem;
+}
+
+.quote-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.quote-brand__logo {
+  width: 140px;
+  max-width: 45vw;
+  height: auto;
+  object-fit: contain;
+}
+
+.quote-brand__content h3 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 600;
 }
 
-.quote-output header p {
+.quote-generated-date {
   color: var(--color-muted);
-  margin-top: 0.35rem;
-  margin-bottom: 1rem;
+  margin: 0.25rem 0 0;
+}
+
+.quote-output--ready .quote-placeholder {
+  display: none;
+}
+
+.quote-brand__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+@media (max-width: 540px) {
+  .quote-brand {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .quote-brand__logo {
+    width: 110px;
+  }
 }
 
 .quote-section + .quote-section {
@@ -353,8 +392,70 @@ a {
   font-size: 0.85rem;
 }
 
+body.is-printing .page-header,
+body.is-printing .page-footer,
+body.is-printing .panel:not(.panel--preview) {
+  display: none !important;
+}
+
+body.is-printing .layout {
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 800px;
+  display: block;
+}
+
+body.is-printing .panel--preview {
+  position: static;
+  box-shadow: none;
+  padding: 0;
+  background: transparent;
+}
+
+body.is-printing .quote-output {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
 @media (max-width: 780px) {
   .panel--preview {
     position: static;
+  }
+}
+
+@page {
+  margin: 20mm;
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .page-header,
+  .page-footer,
+  .panel:not(.panel--preview) {
+    display: none !important;
+  }
+
+  .layout {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 800px;
+    display: block;
+  }
+
+  .panel--preview {
+    position: static;
+    box-shadow: none;
+    padding: 0;
+    background: transparent;
+  }
+
+  .quote-output {
+    border: none;
+    box-shadow: none;
+    padding: 0;
   }
 }
