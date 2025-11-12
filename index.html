@@ -13,7 +13,7 @@
   <header class="page-header">
     <div class="page-header__content">
       <h1>Generador de estimados de inversión</h1>
-      <p>Completa la información para construir un estimado personalizado para tus clientes. Todos los montos están expresados en MXN.</p>
+      <p>Completa la información para construir un estimado personalizado para tus clientes. Todos los montos están expresados en USD.</p>
     </div>
   </header>
 
@@ -60,27 +60,74 @@
             <div class="field-group">
               <label for="admin-count">Administradores (todos los accesos)</label>
               <input type="number" id="admin-count" name="adminCount" min="0" step="1" value="0" />
-              <span class="field-helper">$350 por usuario</span>
+              <span class="field-helper" data-price-helper="adminCount">Precio unitario: $350 USD</span>
             </div>
             <div class="field-group">
               <label for="sales-count">Ventas / Cajas</label>
               <input type="number" id="sales-count" name="salesCount" min="0" step="1" value="0" />
-              <span class="field-helper">$250 por usuario</span>
+              <span class="field-helper" data-price-helper="salesCount">Precio unitario: $250 USD</span>
             </div>
             <div class="field-group">
               <label for="inventory-count">Inventarios</label>
               <input type="number" id="inventory-count" name="inventoryCount" min="0" step="1" value="0" />
-              <span class="field-helper">$300 por usuario</span>
+              <span class="field-helper" data-price-helper="inventoryCount">Precio unitario: $300 USD</span>
             </div>
             <div class="field-group">
               <label for="other-count">Otros módulos individuales</label>
               <input type="number" id="other-count" name="otherCount" min="0" step="1" value="0" />
-              <span class="field-helper">$250 por módulo</span>
+              <span class="field-helper" data-price-helper="otherCount">Precio unitario: $250 USD</span>
             </div>
             <div class="field-group field-group--full">
               <label for="combo-count">Usuarios combinados (hasta 3 módulos)</label>
               <input type="number" id="combo-count" name="comboCount" min="0" step="1" value="0" />
-              <span class="field-helper">$300 por usuario combinado</span>
+              <span class="field-helper" data-price-helper="comboCount">Precio unitario: $300 USD</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Personaliza los precios de licencias</legend>
+          <p class="fieldset-hint">Ajusta los valores unitarios en USD antes de generar el estimado.</p>
+          <div class="field-grid field-grid--prices">
+            <div class="field-group">
+              <label for="adminPrice">Administradores (todos los accesos)</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="adminPrice" name="adminPrice" min="0" step="0.01" value="350" />
+              </div>
+              <span class="field-helper">Se aplicará al perfil de Administradores.</span>
+            </div>
+            <div class="field-group">
+              <label for="salesPrice">Ventas / Cajas</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="salesPrice" name="salesPrice" min="0" step="0.01" value="250" />
+              </div>
+              <span class="field-helper">Se aplicará al perfil de Ventas / Cajas.</span>
+            </div>
+            <div class="field-group">
+              <label for="inventoryPrice">Inventarios</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="inventoryPrice" name="inventoryPrice" min="0" step="0.01" value="300" />
+              </div>
+              <span class="field-helper">Se aplicará al perfil de Inventarios.</span>
+            </div>
+            <div class="field-group">
+              <label for="otherPrice">Otros módulos individuales</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="otherPrice" name="otherPrice" min="0" step="0.01" value="250" />
+              </div>
+              <span class="field-helper">Se aplicará a módulos independientes.</span>
+            </div>
+            <div class="field-group field-group--full">
+              <label for="comboPrice">Usuarios combinados (hasta 3 módulos)</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="comboPrice" name="comboPrice" min="0" step="0.01" value="300" />
+              </div>
+              <span class="field-helper">Se aplicará a combinaciones de hasta 3 módulos.</span>
             </div>
           </div>
         </fieldset>

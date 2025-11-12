@@ -2,9 +2,9 @@
   const form = document.getElementById('quote-form');
   const output = document.getElementById('quote-output');
   const generateButton = document.getElementById('generate-button');
-  const currencyFormatter = new Intl.NumberFormat('es-MX', {
+  const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'MXN',
+    currency: 'USD',
     minimumFractionDigits: 2,
   });
 
@@ -12,27 +12,32 @@
     {
       field: 'adminCount',
       label: 'Administradores (todos los accesos)',
-      price: 350,
+      priceField: 'adminPrice',
+      defaultPrice: 350,
     },
     {
       field: 'salesCount',
       label: 'Ventas / Cajas',
-      price: 250,
+      priceField: 'salesPrice',
+      defaultPrice: 250,
     },
     {
       field: 'inventoryCount',
       label: 'Inventarios',
-      price: 300,
+      priceField: 'inventoryPrice',
+      defaultPrice: 300,
     },
     {
       field: 'otherCount',
       label: 'Otros módulos individuales',
-      price: 250,
+      priceField: 'otherPrice',
+      defaultPrice: 250,
     },
     {
       field: 'comboCount',
       label: 'Usuarios combinados (hasta 3 módulos)',
-      price: 300,
+      priceField: 'comboPrice',
+      defaultPrice: 300,
     },
   ];
 
@@ -51,7 +56,32 @@
   }
 
   function formatCurrency(value) {
-    return currencyFormatter.format(value);
+    return `${currencyFormatter.format(value)} USD`;
+  }
+
+  function parsePrice(value, fallback) {
+    if (value === null || value === undefined || value === '') {
+      return fallback;
+    }
+    const normalized = String(value).replace(/,/g, '.');
+    const parsed = Number.parseFloat(normalized);
+    return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
+  }
+
+  function getUnitPrice(formData, entry) {
+    return parsePrice(formData.get(entry.priceField), entry.defaultPrice);
+  }
+
+  function updatePriceHelpers() {
+    priceCatalog.forEach((entry) => {
+      const helper = document.querySelector(`[data-price-helper="${entry.field}"]`);
+      if (!helper) {
+        return;
+      }
+      const input = document.getElementById(entry.priceField);
+      const price = parsePrice(input ? input.value : '', entry.defaultPrice);
+      helper.textContent = `Precio unitario: ${formatCurrency(price)}`;
+    });
   }
 
   function breakLines(text) {
@@ -103,11 +133,12 @@
     priceCatalog.forEach((entry) => {
       const count = parseNumber(formData.get(entry.field));
       if (count > 0) {
-        const subtotal = count * entry.price;
+        const unitPrice = getUnitPrice(formData, entry);
+        const subtotal = count * unitPrice;
         items.push({
           label: entry.label,
           count,
-          unitPrice: entry.price,
+          unitPrice,
           subtotal,
         });
       }
@@ -317,6 +348,17 @@
 
   generateButton.addEventListener('click', renderQuote);
 
+  priceCatalog.forEach((entry) => {
+    const input = document.getElementById(entry.priceField);
+    if (input) {
+      input.addEventListener('input', () => {
+        updatePriceHelpers();
+      });
+    }
+  });
+
+  updatePriceHelpers();
+
   form.addEventListener('reset', () => {
     setTimeout(() => {
       output.innerHTML = `
@@ -324,6 +366,7 @@
           <p>Completa la información y haz clic en “Generar estimado” para ver el detalle aquí.</p>
         </div>
       `;
+      updatePriceHelpers();
     }, 0);
   });
 })();

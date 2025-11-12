@@ -11,17 +11,17 @@ Este proyecto contiene un formulario web estático que ayuda al equipo comercial
 
 Los precios de implementación utilizados son:
 
-- 1 a 5 colaboradores: $7,000 MXN.
-- 6 a 15 colaboradores: $9,000 MXN.
+- 1 a 5 colaboradores: $7,000 USD.
+- 6 a 15 colaboradores: $9,000 USD.
 - Más de 20 colaboradores: contactar a un asesor para una propuesta personalizada.
 
-Los costos mensuales por usuario son:
+Los costos mensuales por usuario son, con posibilidad de ajustarse desde el formulario:
 
-- Administradores (todos los accesos): $350 MXN.
-- Ventas / Cajas: $250 MXN.
-- Inventarios: $300 MXN.
-- Otros módulos individuales: $250 MXN.
-- Usuarios combinados (hasta 3 módulos): $300 MXN.
+- Administradores (todos los accesos): $350 USD.
+- Ventas / Cajas: $250 USD.
+- Inventarios: $300 USD.
+- Otros módulos individuales: $250 USD.
+- Usuarios combinados (hasta 3 módulos): $300 USD.
 
 ## Personalización
 

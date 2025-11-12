@@ -142,6 +142,28 @@ a {
   margin-top: 0.35rem;
 }
 
+.field-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.field-inline input {
+  flex: 1;
+}
+
+.field-prefix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
 .field-row {
   display: flex;
   flex-wrap: wrap;
@@ -161,6 +183,10 @@ a {
   .field-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+.field-grid--prices {
+  align-items: end;
 }
 
 .field-group--full {
