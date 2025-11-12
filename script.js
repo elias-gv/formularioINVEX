@@ -17,31 +17,31 @@
       field: 'adminCount',
       label: 'Administradores (todos los accesos)',
       priceField: 'adminPrice',
-      defaultPrice: 350,
+      defaultPrice: 50,
     },
     {
       field: 'salesCount',
       label: 'Ventas / Cajas',
       priceField: 'salesPrice',
-      defaultPrice: 250,
+      defaultPrice: 20,
     },
     {
       field: 'inventoryCount',
       label: 'Inventarios',
       priceField: 'inventoryPrice',
-      defaultPrice: 300,
+      defaultPrice: 30,
     },
     {
       field: 'otherCount',
       label: 'Otros módulos individuales',
       priceField: 'otherPrice',
-      defaultPrice: 250,
+      defaultPrice: 30,
     },
     {
       field: 'comboCount',
       label: 'Usuarios combinados (hasta 3 módulos)',
       priceField: 'comboPrice',
-      defaultPrice: 300,
+      defaultPrice: 30,
     },
   ];
 
@@ -104,21 +104,21 @@
     if (employees <= 5) {
       return {
         label: 'Empresas de 1 a 5 colaboradores',
-        cost: 7000,
+        cost: 1000,
       };
     }
 
     if (employees <= 15) {
       return {
         label: 'Empresas de 6 a 15 colaboradores',
-        cost: 9000,
+        cost: 2000,
       };
     }
 
     if (employees <= 20) {
       return {
         label: 'Empresas de 16 a 20 colaboradores',
-        cost: 9000,
+        cost: 3000,
         detail: 'Validar con el equipo de implementación si se requiere un ajuste adicional.',
       };
     }
