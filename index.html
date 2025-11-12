@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de estimados INVEX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="page-header__content">
+      <h1>Generador de estimados de inversión</h1>
+      <p>Completa la información para construir un estimado personalizado para tus clientes. Todos los montos están expresados en USD.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Datos del proyecto</h2>
+      <form id="quote-form" class="quote-form" autocomplete="off">
+        <fieldset>
+          <legend>Información general</legend>
+          <div class="field-group">
+            <label for="company-name">Nombre de la empresa</label>
+            <input type="text" id="company-name" name="companyName" placeholder="Ej. Corporativo Ejemplar" />
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label for="contact-name">Nombre del contacto</label>
+              <input type="text" id="contact-name" name="contactName" placeholder="Ej. María Pérez" />
+            </div>
+            <div class="field-group">
+              <label for="contact-email">Correo electrónico</label>
+              <input type="email" id="contact-email" name="contactEmail" placeholder="contacto@empresa.com" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label for="employees">Número total de colaboradores</label>
+              <input type="number" id="employees" name="employees" min="0" step="1" value="5" />
+            </div>
+            <div class="field-group">
+              <label for="go-live">Fecha estimada de arranque</label>
+              <input type="date" id="go-live" name="goLive" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="notes">Descripción breve del proyecto</label>
+            <textarea id="notes" name="notes" rows="2" placeholder="Añade aquí contexto relevante para la implementación"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Distribución de licencias</legend>
+          <p class="fieldset-hint">Indica la cantidad de usuarios por perfil o combinación. Los precios se calculan de forma mensual.</p>
+          <div class="field-grid">
+            <div class="field-group">
+              <label for="admin-count">Administradores (todos los accesos)</label>
+              <input type="number" id="admin-count" name="adminCount" min="0" step="1" value="0" />
+              <span class="field-helper" data-price-helper="adminCount">Precio unitario: $350 USD</span>
+            </div>
+            <div class="field-group">
+              <label for="sales-count">Ventas / Cajas</label>
+              <input type="number" id="sales-count" name="salesCount" min="0" step="1" value="0" />
+              <span class="field-helper" data-price-helper="salesCount">Precio unitario: $250 USD</span>
+            </div>
+            <div class="field-group">
+              <label for="inventory-count">Inventarios</label>
+              <input type="number" id="inventory-count" name="inventoryCount" min="0" step="1" value="0" />
+              <span class="field-helper" data-price-helper="inventoryCount">Precio unitario: $300 USD</span>
+            </div>
+            <div class="field-group">
+              <label for="other-count">Otros módulos individuales</label>
+              <input type="number" id="other-count" name="otherCount" min="0" step="1" value="0" />
+              <span class="field-helper" data-price-helper="otherCount">Precio unitario: $250 USD</span>
+            </div>
+            <div class="field-group field-group--full">
+              <label for="combo-count">Usuarios combinados (hasta 3 módulos)</label>
+              <input type="number" id="combo-count" name="comboCount" min="0" step="1" value="0" />
+              <span class="field-helper" data-price-helper="comboCount">Precio unitario: $300 USD</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Personaliza los precios de licencias</legend>
+          <p class="fieldset-hint">Ajusta los valores unitarios en USD antes de generar el estimado.</p>
+          <div class="field-grid field-grid--prices">
+            <div class="field-group">
+              <label for="adminPrice">Administradores (todos los accesos)</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="adminPrice" name="adminPrice" min="0" step="0.01" value="350" />
+              </div>
+              <span class="field-helper">Se aplicará al perfil de Administradores.</span>
+            </div>
+            <div class="field-group">
+              <label for="salesPrice">Ventas / Cajas</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="salesPrice" name="salesPrice" min="0" step="0.01" value="250" />
+              </div>
+              <span class="field-helper">Se aplicará al perfil de Ventas / Cajas.</span>
+            </div>
+            <div class="field-group">
+              <label for="inventoryPrice">Inventarios</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="inventoryPrice" name="inventoryPrice" min="0" step="0.01" value="300" />
+              </div>
+              <span class="field-helper">Se aplicará al perfil de Inventarios.</span>
+            </div>
+            <div class="field-group">
+              <label for="otherPrice">Otros módulos individuales</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="otherPrice" name="otherPrice" min="0" step="0.01" value="250" />
+              </div>
+              <span class="field-helper">Se aplicará a módulos independientes.</span>
+            </div>
+            <div class="field-group field-group--full">
+              <label for="comboPrice">Usuarios combinados (hasta 3 módulos)</label>
+              <div class="field-inline">
+                <span class="field-prefix">USD</span>
+                <input type="number" id="comboPrice" name="comboPrice" min="0" step="0.01" value="300" />
+              </div>
+              <span class="field-helper">Se aplicará a combinaciones de hasta 3 módulos.</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Personaliza los textos</legend>
+          <div class="field-group">
+            <label for="quote-title">Encabezado principal</label>
+            <input type="text" id="quote-title" name="quoteTitle" value="Estimado de inversión para " />
+          </div>
+          <div class="field-group">
+            <label for="intro-text">Mensaje de introducción</label>
+            <textarea id="intro-text" name="introText" rows="3">Gracias por considerar nuestro sistema para impulsar la operación de tu empresa. A continuación encontrarás un estimado basado en la información proporcionada.</textarea>
+          </div>
+          <div class="field-group">
+            <label for="notes-text">Notas adicionales</label>
+            <textarea id="notes-text" name="notesText" rows="3">Podemos ajustar estos módulos o volúmenes en función de tus necesidades específicas. Si requieres funcionalidades adicionales, con gusto preparamos una propuesta detallada.</textarea>
+          </div>
+          <div class="field-group">
+            <label for="disclaimer-text">Aviso importante</label>
+            <textarea id="disclaimer-text" name="disclaimerText" rows="2">Este documento es un ESTIMADO de inversión y no constituye una cotización final. Los precios pueden variar después de un análisis detallado.</textarea>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="button" id="generate-button" class="button button--primary">Generar estimado</button>
+          <button type="reset" class="button button--secondary">Limpiar formulario</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel panel--preview">
+      <h2>Vista previa del estimado</h2>
+      <article id="quote-output" class="quote-output" aria-live="polite">
+        <div class="quote-placeholder">
+          <p>Completa la información y haz clic en “Generar estimado” para ver el detalle aquí.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <small>Herramienta interna para el equipo comercial de INVEX.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
